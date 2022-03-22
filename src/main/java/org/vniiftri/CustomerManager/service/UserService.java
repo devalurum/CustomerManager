@@ -1,8 +1,8 @@
-package org.vniiftri.CustomerManager.controller;
+package org.vniiftri.CustomerManager.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.vniiftri.CustomerManager.DAO.UserRepository;
+import org.vniiftri.CustomerManager.repository.UserRepository;
 import org.vniiftri.CustomerManager.model.User;
 
 import javax.transaction.Transactional;
@@ -10,8 +10,9 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class UserService {
-    @Autowired
+
     private UserRepository userRepository;
 
     public List<User> listAllUser() {
@@ -23,7 +24,7 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     public void deleteUser(Long id) {
